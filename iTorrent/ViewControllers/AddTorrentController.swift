@@ -156,10 +156,6 @@ class AddTorrentController: ThemedUIViewController {
         if FileManager.default.fileExists(atPath: Core.tempFile) {
             try? FileManager.default.removeItem(atPath: Core.tempFile)
         }
-        #if !targetEnvironment(macCatalyst)
-        FullscreenAd.shared.load()
-        #endif
-        UnityAdsManager.shared.showInterstitialAdIfNotShowed(from: self)
         dismiss(animated: true)
     }
 
@@ -218,11 +214,6 @@ class AddTorrentController: ThemedUIViewController {
         } catch {
             Dialog.show(self, title: "Error has been occured", message: error.localizedDescription)
         }
-        
-        #if !targetEnvironment(macCatalyst)
-        FullscreenAd.shared.load()
-        #endif
-        UnityAdsManager.shared.showInterstitialAdIfNotShowed(from: self)
     }
 
     func updateWeightLabel() {
@@ -239,11 +230,6 @@ extension AddTorrentController: UIAdaptivePresentationControllerDelegate {
         if FileManager.default.fileExists(atPath: Core.tempFile) {
             try? FileManager.default.removeItem(atPath: Core.tempFile)
         }
-        
-        #if !targetEnvironment(macCatalyst)
-        FullscreenAd.shared.load()
-        #endif
-        UnityAdsManager.shared.showInterstitialAdIfNotShowed(from: self)
     }
 }
 

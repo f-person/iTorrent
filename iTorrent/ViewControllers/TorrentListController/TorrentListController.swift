@@ -6,32 +6,17 @@
 //  Copyright © 2020  XITRIX. All rights reserved.
 //
 
-#if !targetEnvironment(macCatalyst)
-import GoogleMobileAds
-#endif
-
 #if TRANSMISSION
 import ITorrentTransmissionFramework
 #else
 import ITorrentFramework
 #endif
 
-import UnityAds
-
 import UIKit
 import Bond
 
 class TorrentListController: MvvmViewController<TorrentListViewModel> {
     @IBOutlet var tableView: ThemedUITableView!
-
-    #if !targetEnvironment(macCatalyst)
-    @IBOutlet var adsView: GADBannerView!
-    #else
-    @IBOutlet var adsView: UIView!
-    #endif
-
-    var unityAdsView: UADSBannerView!
-    @IBOutlet var adsStackView: UIStackView!
 
     @IBOutlet var tableviewPlaceholder: UIView!
     @IBOutlet var tableviewPlaceholderImage: UIImageView!
@@ -47,7 +32,6 @@ class TorrentListController: MvvmViewController<TorrentListViewModel> {
     var editmodeBarButtonItems: [UIBarButtonItem] = []
 
     var searchController: UISearchController!
-    var adsLoaded = false
 
     var torrentListDataSource: TorrentListDataSource!
     var rssSearchDataSource: RssSearchDataSource!
@@ -96,9 +80,6 @@ class TorrentListController: MvvmViewController<TorrentListViewModel> {
         localize()
 
         initializeTableView()
-        #if !targetEnvironment(macCatalyst)
-        initializeAds()
-        #endif
         initializeSearchView()
         initializeEditMode()
         showUpdateLog()
@@ -146,10 +127,6 @@ class TorrentListController: MvvmViewController<TorrentListViewModel> {
         if splitViewController?.isCollapsed ?? true {
             smoothlyDeselectRows(in: tableView)
         }
-
-        #if !targetEnvironment(macCatalyst)
-        viewWillAppearAds()
-        #endif
     }
 
     @IBAction func editAction(_ sender: UIBarButtonItem) {

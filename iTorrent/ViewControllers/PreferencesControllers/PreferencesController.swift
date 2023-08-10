@@ -361,7 +361,6 @@ class PreferencesController: StaticTableViewController {
 
             weakSelf?.present(alert, animated: true)
         })
-        donates.append(SegueCell.Model(weakSelf, title: "Patreon", segueViewId: "PatreonViewController"))
         data.append(Section(rowModels: donates, header: "Settings.DonateHeader", footer: "Settings.DonateFooter"))
 
         // -MARK: DEBUG

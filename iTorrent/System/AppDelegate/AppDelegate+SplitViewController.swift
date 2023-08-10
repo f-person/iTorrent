@@ -27,7 +27,6 @@ extension AppDelegate: UISplitViewControllerDelegate {
             if nav.topViewController is PreferencesController ||
                 nav.topViewController is SortingPreferencesController ||
                 nav.topViewController is WebDavPreferencesController ||
-                nav.topViewController is PatreonViewController ||
                 nav.topViewController is RssFeedController ||
                 nav.topViewController is RssChannelController ||
                 nav.topViewController is NetworkPreferencesController ||
@@ -43,7 +42,6 @@ extension AppDelegate: UISplitViewControllerDelegate {
                 !(navController.topViewController is PreferencesController),
                 !(navController.topViewController is SortingPreferencesController),
                 !(navController.topViewController is WebDavPreferencesController),
-                !(navController.topViewController is PatreonViewController),
                 !(navController.topViewController is RssFeedController),
                 !(navController.topViewController is RssChannelController),
                 !(navController.topViewController is NetworkPreferencesController),

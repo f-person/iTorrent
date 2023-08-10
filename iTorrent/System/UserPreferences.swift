@@ -78,20 +78,9 @@ class UserPreferences {
 
     private static let localVersion = (try? String(contentsOf: Bundle.main.url(forResource: "Version", withExtension: "ver")!)) ?? ""
     @PreferenceItem("versionNews" + localVersion, false) static var versionNews: Bool
-
-    // -MARK: Patreon
-    @PreferenceData("patreonAccessToken", "") static var patreonAccessToken: String?
-    @PreferenceData("patreonRefreshToken", "") static var patreonRefreshToken: String?
-    
-    @PreferenceData("patreonAccount", nil) static var patreonAccount: PatreonAccount?
-    @PreferenceData("patreonCredentials", nil) static var patreonCredentials: PatreonCredentials?
     
     static func alertDialog(code: String) -> SettingProperty<Bool> {
         SettingProperty<Bool>("alertDialog" + code, false)
-    }
-    
-    static var disableAds: Bool {
-        UserPreferences.patreonAccount?.hideAds ?? false
     }
 
     @PreferenceData("fullscreenAdShownDate", nil) static var dateFSAdShown: Date?

@@ -12,19 +12,9 @@ import ITorrentTransmissionFramework
 import ITorrentFramework
 #endif
 
-import AdSupport
 import AppTrackingTransparency
 import UIKit
 // import ObjectiveC
-
-#if !targetEnvironment(macCatalyst)
-import FirebaseCore
-import GoogleMobileAds
-
-import AppCenter
-import AppCenterAnalytics
-import AppCenterCrashes
-#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,22 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
 //        ObjC.oldOSPatch()
 
-        #if !targetEnvironment(macCatalyst)
-        // Crash on iOS 9
-        if #available(iOS 10, *) {
-            AppCenter.start(withAppSecret: "381c5088-264f-4ea2-b145-498a2ce15a06", services: [
-                Analytics.self,
-                Crashes.self
-            ])
-        }
-
-        FirebaseApp.configure()
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
-        // GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "0e836d6d9e4873bf2acac60f6e5de207" ]
-        #endif
-
         pushNotificationsInit(application)
-        PatreonAPI.configure()
         rootWindowInit()
         Core.configure()
 
@@ -62,30 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if UserPreferences.ftpKey {
             Core.shared.startFileSharing()
-        }
-
-        func showAds() {
-            #if !targetEnvironment(macCatalyst)
-            DispatchQueue.global(qos: .utility).async {
-                sleep(1)
-                if !self.openedByFile {
-                    FullscreenAd.shared.load()
-                    DispatchQueue.main.async {
-                        if let viewController = self.window?.rootViewController {
-                            UnityAdsManager.shared.showInterstitialAdIfNotShowed(from: viewController)
-                        }
-                    }
-                }
-            }
-            #endif
-        }
-
-        if #available(iOS 14, *) {
-            ATTrackingManager.requestTrackingAuthorization { _ in
-                showAds()
-            }
-        } else {
-            showAds()
         }
 
         return true
